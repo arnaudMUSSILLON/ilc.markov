@@ -10,6 +10,10 @@ public class MarkovWord {
 	public MarkovWord() {
 
 	}
+        
+        public MarkovWord(String dataWord, int n){
+            data = (ArrayList<MarkovData>)processString(dataWord,n);
+        }
 
 	public double getSimilarity(String wordOne, String wordTwo, int n) {
 		List<MarkovData> res1 = processString(wordOne, n);
@@ -92,4 +96,29 @@ public class MarkovWord {
 			System.out.println(d.get(i).theWord + " occurred " + d.get(i).theCount + " times");
 		}
 	}
+        
+        @Override
+        public int hashCode() {
+            int hash = 5;
+            hash = 79 * hash + (this.data != null ? this.data.hashCode() : 0);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final MarkovWord other = (MarkovWord) obj;
+            if (this.data != other.data && (this.data == null || !this.data.equals(other.data))) {
+                return false;
+            }
+            return true;
+        }
 }
